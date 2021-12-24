@@ -21,7 +21,7 @@ class HomeController extends Controller
         else
         $foods = Food::all();
         $chefs = FoodChef::all();
-        return view('home', compact('foods', 'chefs'));
+        return view('index', compact('foods', 'chefs'));
     }
 
     public function redirects() {
@@ -38,7 +38,7 @@ class HomeController extends Controller
             $user_id = Auth::id();
             $count = Cart::where('user_id', $user_id)->count();
 
-            return view('home', compact('foods', 'chefs', 'count'));
+            return view('index', compact('foods', 'chefs', 'count'));
         }
     }
 
@@ -73,7 +73,7 @@ class HomeController extends Controller
              //$carts = Cart::select('*')->where('user_id', '=', $id)->get();
 
              $foods = Food::select('*')->leftjoin('carts', 'foods.id', '=', 'carts.food_id')->where('carts.user_id', '=', $id)->get();
-            
+
              return view('showCart', compact('count','foods'));
         }
         else {
